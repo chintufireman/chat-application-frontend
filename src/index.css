@@ -11,3 +11,21 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+
+.chat-box {
+  background-color: #f0f0f0;
+  border: 1px solid #ccc;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+}
+
+.chat-box--user {
+  background-color: #d3edfc;
+}
+
+.list-group-item {
+  border-radius: 20px;
+  margin-bottom: 10px;
+}
