@@ -11,36 +11,73 @@ const ShowChatBox = () => {
   let navigate = useNavigate();
 
   let sendMessage = async (e) => {
+
     e.preventDefault();
+
     let msg = document.getElementById("message").value;
+
     let jsonOb = {
       name: localStorage.getItem("name"),
       content: msg,
     };
-    stompClient.subscribe("/topic/return-to", (response) => {
+
+    // stompClient.subscribe("/topic/return-to", (response) => {
+    //   showMessage(JSON.parse(response.body));
+    // });
+    let name1 = localStorage.getItem("name");
+    let name2 = localStorage.getItem("name2");
+    let chatUrl;
+    
+    if (name1.localeCompare(name2) < 0) {
+      chatUrl = "/chatroom/" + name1 + "-" + name2;
+    } else {
+      chatUrl = "/chatroom/" + name2 + "-" + name1;
+    }
+
+    stompClient.subscribe(chatUrl, (response) => {
       showMessage(JSON.parse(response.body));
     });
-    stompClient.send("/app/chatTo", {}, JSON.stringify(jsonOb));
+
+    stompClient.send(
+      "/app/private/" + name1 + "/" + name2,
+      {},
+      JSON.stringify(jsonOb)
+    );
   };
 
   let showMessage = (message) => {
     let { name, content } = message;
-  setData({ name: name, message: content });
+    setData({ name: name, message: content });
   };
 
   useEffect(() => {
-    console.log(data+"from useEffect");
-  }, [data.name,data.message,data]);
+    fetchData();
+  }, []);
 
-
-  let handleLogout=()=>{
+  let handleLogout = () => {
     localStorage.removeItem("name");
-    if (stompClient!=null) {
-      stompClient.disconnect()
+    localStorage.removeItem("name2");
+    if (stompClient != null) {
+      stompClient.disconnect();
       console.log(stompClient);
-      navigate("/")
-     }
-  }
+      navigate("/");
+    }
+  };
+
+  const fetchData = async () => {
+    const response = await fetch(
+      "http://192.168.1.9:9191/api/v1/user-handle/users",
+      {
+        method: "GET",
+        headers: {
+          "Content-type": "application/json",
+        },
+      }
+    );
+
+    const json = await response.json();
+    console.log(json);
+  };
 
   return (
     <div className="container mt-4">
@@ -70,7 +107,6 @@ const ShowChatBox = () => {
         </button>
       </div>
       <Table name={data.name} message={data.message} />
-   
     </div>
   );
 };

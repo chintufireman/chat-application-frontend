@@ -2,11 +2,14 @@ import SockJS from "sockjs-client";
 import { Stomp } from "@stomp/stompjs";
 import { useNavigate } from "react-router-dom";
 
+
 export let stompClient = null;
  
 
 const ChatBox = () => {
   let navigate = useNavigate();
+
+ 
 
   let loginHandle = (event) => {
     event.preventDefault();
@@ -24,7 +27,6 @@ const ChatBox = () => {
   };
 
   
-
 
   return (
     <>
@@ -49,6 +51,7 @@ const ChatBox = () => {
                 aria-label="Example text with button addon"
                 aria-describedby="button-addon1"
               />
+              
             </div>
           </div>
         </div>
