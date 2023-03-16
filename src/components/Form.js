@@ -44,6 +44,11 @@ const Form = () => {
       console.log("Signed up");
       console.log("with these values"+JSON.stringify(json));
     }
+    setData({
+      email:"",
+      name:"",
+      password:""
+    })
   }
 
   let handleOnChange=(e)=>{
@@ -64,6 +69,7 @@ const Form = () => {
             name="email"
             aria-describedby="emailHelp"
             onChange={handleOnChange}
+            value={data.email}
           />  
         </div>
         <div className="mb-3">
@@ -76,6 +82,7 @@ const Form = () => {
             id="name"
             name="name"
             onChange={handleOnChange}
+            value={data.name}
           />
         </div>
 
@@ -90,6 +97,7 @@ const Form = () => {
             id="password"
             name="password"
             onChange={handleOnChange}
+            value={data.password}
           />
         </div>
 

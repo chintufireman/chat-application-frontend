@@ -1,29 +1,23 @@
 import React from "react";
 
 const Messages = () => {
+  console.log("Message component rendered");
   return (
     <div className="container">
-      <div class="list-group">
-        <a
-          href="#"
-          class="list-group-item list-group-item-action active"
-          aria-current="true"
-        >
-          The current link item
-        </a>
-        <a href="#" class="list-group-item list-group-item-action">
-          A second link item
-        </a>
-        <a href="#" class="list-group-item list-group-item-action">
-          A third link item
-        </a>
-        <a href="#" class="list-group-item list-group-item-action">
-          A fourth link item
-        </a>
-        <a class="list-group-item list-group-item-action disabled">
-          A disabled link item
-        </a>
-      </div>
+      <table className="table table-dark">
+        <thead>
+          <tr>
+            <th scope="col">Sender</th>
+            <th scope="col">Receiver</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Rahul</td>
+            <td>Rajat</td>
+          </tr>
+        </tbody>
+      </table>
     </div>
   );
 };
