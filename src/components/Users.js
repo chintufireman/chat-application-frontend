@@ -6,7 +6,8 @@ const Users = () => {
   useEffect(() => {
     const fetchData = async (e) => {
       const response = await fetch(
-        "http://192.168.1.9:9191/api/v1/user-handle/users",
+        "http://192.168.1.9:9191/api/v1/user-handle/sent-messages/" +
+          localStorage.getItem("email"),
         {
           method: "GET",
           headers: {
@@ -21,21 +22,63 @@ const Users = () => {
     fetchData();
   }, []);
 
+  const searchUser = async () => {
+    let username = document.getElementById("username").value;
+
+    const response = await fetch(
+      "http://192.168.1.9:9191/api/v1/user-handle/find-user/" + username,
+      {
+        method: "GET",
+        headers: {
+          "Content-type": "application/json",
+        },
+      }
+    );
+    const json = await response.json();
+    setUserData(prevState=>[...prevState,json]);
+  };
+
   return (
     <div className="container my-4">
-      <div className="list-group">
+      <div className="list-group ">
         {userData.map((user) => (
+          // u can pass props to navigating link by providing props in "to" object
           <Link
             key={user.id}
             to="/message"
-            className="list-group-item list-group-item-action d-flex justify-content-between align-items-center "
+            state={{ data: user }}
+            className="list-group-item list-group-item-action d-flex justify-content-between align-items-center list-group-item-dark"
             aria-current="true"
           >
             {user.email}
-            <span className="badge bg-primary rounded-pill ms-5">14</span>
           </Link>
         ))}
       </div>
+      <dic className="container">
+        <div className="row justify-content-start mt-4">
+          <div className="col-6 col-md-4">
+            <div className="chat-box chat-box--user input-group mb-3">
+              <button
+                className="btn btn-outline-secondary"
+                type="button"
+                id="login"
+                name="login"
+                onClick={searchUser}
+              >
+                Search User
+              </button>
+              <input
+                type="text"
+                id="username"
+                className="form-control"
+                placeholder="Enter Name here"
+                aria-label="Example text with button addon"
+                aria-describedby="button-addon1"
+              />
+            </div>
+          </div>
+        </div>
+      </dic>
     </div>
   );
 };

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import { stompClient } from "./ChatBox";
-import Table from "./Table";
 import { useNavigate } from "react-router-dom";
+import { stompClient } from "./Login";
+import Users from "./Users";
 
 const ShowChatBox = () => {
   let [data, setData] = useState({
@@ -24,8 +24,8 @@ const ShowChatBox = () => {
     // stompClient.subscribe("/topic/return-to", (response) => {
     //   showMessage(JSON.parse(response.body));
     // });
-    let name1 = localStorage.getItem("name");
-    let name2 = localStorage.getItem("name2");
+    let name1 = localStorage.getItem("email");
+    let name2 = localStorage.getItem("email2");
     let chatUrl;
     
     if (name1.localeCompare(name2) < 0) {
@@ -80,34 +80,7 @@ const ShowChatBox = () => {
   };
 
   return (
-    <div className="container mt-4">
-      <div className="input-group">
-        <textarea
-          className="form-control"
-          aria-label="With textarea"
-          id="message"
-        ></textarea>
-        <button
-          className="btn btn-outline-primary"
-          type="button"
-          id="send"
-          name="send"
-          onClick={sendMessage}
-        >
-          Send
-        </button>
-        <button
-          className="btn btn-outline-primary mx-1"
-          type="button"
-          id="logout"
-          name="logout"
-          onClick={handleLogout}
-        >
-          Logout
-        </button>
-      </div>
-      <Table name={data.name} message={data.message} />
-    </div>
+    <Users sendMessage={sendMessage}></Users>
   );
 };
 

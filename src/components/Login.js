@@ -1,9 +1,12 @@
+import { Stomp } from "@stomp/stompjs";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-
+import SockJS from "sockjs-client";
+export let stompClient = null;
 const Login = () => {
 
   let navigate = useNavigate()
+  
 
   let [data, setData] = useState({
     email: "",
@@ -29,15 +32,27 @@ const Login = () => {
           password:password
         })
       }
-    );
+    ); 
     let json = await response.json()
     if(json!=null){
+      console.log(response);
       console.log(json.name);
       localStorage.setItem("name",json.name);
       localStorage.setItem("email",json.email);
+      connect();
       navigate("/chat")
     }
   };
+
+  let connect = () => {
+    let socket = new SockJS("http://192.168.1.9:9191/server1");
+    stompClient = Stomp.over(socket);
+    stompClient.connect({}, function (frame) {
+      console.log("Connected: to chatApp " + frame);
+    });
+  };
+
+
   return (
     <form>
       <div className="container">
