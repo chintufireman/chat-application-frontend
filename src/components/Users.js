@@ -20,6 +20,7 @@ const Users = () => {
       console.log(userData);
     };
     fetchData();
+    // eslint-disable-next-line
   }, []);
 
   const searchUser = async () => {

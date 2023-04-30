@@ -6,9 +6,28 @@ const Messages = () => {
   let { state } = useLocation();
 
   let [message, setMessage] = useState([]);
-  
+  let[sentMsgs,setSentMsgs]=useState([])
+  // let[receivedMsgs,setReceivedMsgs]=useState([])
   useEffect(() => {
-    console.log(state);
+     let fetchData=async()=>{
+      const response = await fetch(
+        "http://localhost:9191/sent-messages/" +
+          localStorage.getItem("email") +
+          "/" +
+          state.data.email,
+        {
+          method: "POST",
+          headers: {
+            "Content-type": "application/json",
+          },
+        }
+      );
+      let json = await response.json();
+      console.log(json);
+      setSentMsgs(json);
+     }
+     fetchData()
+    // console.log(state);
     localStorage.setItem("name2", state.data.name);
     localStorage.setItem("email2", state.data.email);
   }, [state]);
@@ -54,9 +73,7 @@ const Messages = () => {
         <table className="table table-dark table-borderless align-middle">
           <thead>
             <tr className="align-middle">
-              <th className="" scope="col">
-                Sender
-              </th>
+              <th scope="col">Sender</th>
               <th scope="col">Receiver</th>
             </tr>
           </thead>
@@ -70,11 +87,11 @@ const Messages = () => {
       </div>
       <div className="container">
         <table className="table table-light table-borderless">
-          <tbody>
-            {message.map((message, index) => (
+          <tbody id="messageBody">
+            {sentMsgs.map((message, index) => (
               <tr key={index}>
-                <td>{message.name}</td>
-                <td>{message.content}</td>
+                <td>{message.senderId}</td>
+                <td>{message.data}</td>
               </tr>
             ))}
           </tbody>
