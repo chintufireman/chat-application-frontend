@@ -11,7 +11,7 @@ const Messages = () => {
   useEffect(() => {
      let fetchData=async()=>{
       const response = await fetch(
-        "http://localhost:9191/sent-messages/" +
+        process.env.REACT_APP_HOST+process.env.REACT_APP_SENT_MSGS +
           localStorage.getItem("email") +
           "/" +
           state.data.email,
@@ -19,6 +19,7 @@ const Messages = () => {
           method: "POST",
           headers: {
             "Content-type": "application/json",
+            "Authorization":"Bearer "+localStorage.getItem("token")
           },
         }
       );

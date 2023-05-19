@@ -21,14 +21,15 @@ const Login = () => {
     e.preventDefault();
     const { email,password } = data;
     const response = await fetch(
-      "http://192.168.1.9:9191/api/v1/user-handle/login",
+      process.env.REACT_APP_HOST+process.env.REACT_APP_TOKEN,
       {
         method: "POST",
         headers: {
+          
           "Content-type": "application/json",
         },
         body:JSON.stringify({
-          email:email,
+          username:email,
           password:password
         })
       }
@@ -36,16 +37,18 @@ const Login = () => {
     let json = await response.json()
     if(json!=null){
       console.log(response);
-      console.log(json.name);
-      localStorage.setItem("name",json.name);
-      localStorage.setItem("email",json.email);
+
+      localStorage.setItem("email",json.user.username);
+      localStorage.setItem("name",json.user.name);
+      localStorage.setItem("token",json.token);
+
       connect();
       navigate("/chat")
     }
   };
 
   let connect = () => {
-    let socket = new SockJS("http://192.168.1.9:9191/server1");
+    let socket = new SockJS(process.env.REACT_APP_HOST+"/server1");
     stompClient = Stomp.over(socket);
     stompClient.connect({}, function (frame) {
       console.log("Connected: to chatApp " + frame);

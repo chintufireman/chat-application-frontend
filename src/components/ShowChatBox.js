@@ -66,7 +66,7 @@ const ShowChatBox = () => {
 
   const fetchData = async () => {
     const response = await fetch(
-      "http://192.168.1.9:9191/api/v1/user-handle/users",
+      process.env.REACT_APP_HOST+"/api/v1/user-handle/users",
       {
         method: "GET",
         headers: {

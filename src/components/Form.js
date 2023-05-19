@@ -23,10 +23,11 @@ const Form = () => {
     so use const[email,name,password]
     */
     const{name,email,password}=data //and always use {} for object destructuring noob
-    const response = await fetch(`http://192.168.1.9:9191/api/v1/user-handle/create`,{
+    const response = await fetch(process.env.REACT_APP_HOST+process.env.REACT_APP_CREATE,{
       method:"POST",
       headers:{
-        "Content-type":"application/json"
+        "Content-type":"application/json",
+        "Authorization": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ4eGJ1bm51eHgiLCJleHAiOjE2ODQ0MzMzMDAsImlhdCI6MTY4NDQxNTMwMH0.4vZz8d1in3yiBMgNTrVoocNfW4L8uJW8tO1J3Zq3BaZ1yp5JQxgkOnhHpiuuBWx4lqwdcgu3HBbdCnYdCC8TwQ"
       },
       body:JSON.stringify({
         name:name,
