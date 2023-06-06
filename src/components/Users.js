@@ -6,7 +6,7 @@ const Users = () => {
   useEffect(() => {
     const fetchData = async (e) => {
       const response = await fetch(
-        process.env.REACT_APP_HOST+"/api/v1/user-handle/sent-messages/" +
+        process.env.REACT_APP_HOST+process.env.REACT_APP_LOAD_USERS_HAVING_CHAT +
           localStorage.getItem("email"),
         {
           method: "GET",
@@ -27,7 +27,7 @@ const Users = () => {
     let username = document.getElementById("username").value;
 
     const response = await fetch(
-      process.env.REACT_APP_HOST+"/api/v1/user-handle/find-user/" + username,
+      process.env.REACT_APP_HOST+process.env.REACT_APP_SEARCH_USER + username,
       {
         method: "GET",
         headers: {

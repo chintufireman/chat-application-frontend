@@ -27,7 +27,7 @@ const Form = () => {
       method:"POST",
       headers:{
         "Content-type":"application/json",
-        "Authorization": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ4eGJ1bm51eHgiLCJleHAiOjE2ODQ0MzMzMDAsImlhdCI6MTY4NDQxNTMwMH0.4vZz8d1in3yiBMgNTrVoocNfW4L8uJW8tO1J3Zq3BaZ1yp5JQxgkOnhHpiuuBWx4lqwdcgu3HBbdCnYdCC8TwQ"
+        "Authorization": "Bearer "+localStorage.getItem("token")
       },
       body:JSON.stringify({
         name:name,

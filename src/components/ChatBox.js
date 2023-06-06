@@ -19,7 +19,7 @@ const ChatBox = () => {
   };
 
   let connect = () => {
-    let socket = new SockJS(process.env.REACT_APP_HOST+"/server1");
+    let socket = new SockJS(process.env.REACT_APP_HOST+process.env.REACT_APP_CHAT_SERVER);
     stompClient = Stomp.over(socket);
     stompClient.connect({}, function (frame) {
       console.log("Connected: to chatApp " + frame);

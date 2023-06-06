@@ -11,7 +11,7 @@ const Messages = () => {
   useEffect(() => {
      let fetchData=async()=>{
       const response = await fetch(
-        process.env.REACT_APP_HOST+process.env.REACT_APP_SENT_MSGS +
+        process.env.REACT_APP_HOST+process.env.REACT_APP_SENT_MESSAGES +
           localStorage.getItem("email") +
           "/" +
           state.data.email,
